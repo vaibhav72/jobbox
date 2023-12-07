@@ -16,6 +16,8 @@ class AuthFlowController extends GetxController {
   TextEditingController nameSignUpController = TextEditingController();
   TextEditingController phoneSignUpController = TextEditingController();
   TextEditingController passwordSignUpController = TextEditingController();
+  TextEditingController confirmPasswordSignUpController =
+      TextEditingController();
   PageController pageController = PageController();
   Rxn<XFile?> profilePic = Rxn<XFile?>();
   final ImagePicker _picker = ImagePicker();
@@ -77,6 +79,7 @@ class AuthFlowController extends GetxController {
           nameSignUpController.clear();
           phoneSignUpController.clear();
           passwordSignUpController.clear();
+          confirmPasswordSignUpController.clear();
           profilePic.value = null;
         }).catchError((e) {
           showSnackBar(e.toString());
@@ -95,6 +98,27 @@ class AuthFlowController extends GetxController {
     passwordSignUpController.dispose();
     nameSignUpController.dispose();
     phoneSignUpController.dispose();
+    confirmPasswordSignUpController.dispose();
     super.onClose();
+  }
+
+  gotoLogin() {
+    emailSignUpController.text = "";
+    passwordSignUpController.text = "";
+    nameSignUpController.text = "";
+    phoneSignUpController.text = "";
+    confirmPasswordSignUpController.text = "";
+    profilePic.value = null;
+
+    pageController.animateToPage(0,
+        duration: Duration(milliseconds: 500), curve: Curves.ease);
+  }
+
+  gotoRegister() {
+    emailSignInController.text = "";
+    passwordSignInController.text = "";
+
+    pageController.animateToPage(1,
+        duration: Duration(milliseconds: 500), curve: Curves.ease);
   }
 }

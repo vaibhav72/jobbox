@@ -97,8 +97,7 @@ class Loginview extends GetView<AuthFlowController> {
                                       text: "Sign Up ",
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
-                                          controller.pageController
-                                              .jumpToPage(1);
+                                          controller.gotoRegister();
                                         },
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w600,

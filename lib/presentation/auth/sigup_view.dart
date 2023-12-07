@@ -21,8 +21,7 @@ class Signupview extends GetView<AuthFlowController> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        controller.pageController.animateToPage(0,
-            duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+        controller.gotoLogin();
         return Future.value(false);
       },
       child: Scaffold(
@@ -33,9 +32,7 @@ class Signupview extends GetView<AuthFlowController> {
           ),
           leading: InkWell(
             onTap: () {
-              controller.pageController.animateToPage(0,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeIn);
+              controller.gotoLogin();
             },
             child: const Icon(
               Icons.arrow_back_ios,
@@ -156,6 +153,8 @@ class Signupview extends GetView<AuthFlowController> {
                                     height: 20,
                                   ),
                                   CustomTextField(
+                                    controller: controller
+                                        .confirmPasswordSignUpController,
                                     title: "Confirm Password",
                                     obscure: true,
                                     validator: (value) {
@@ -189,8 +188,7 @@ class Signupview extends GetView<AuthFlowController> {
                                           text: "Log In ",
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
-                                              controller.pageController
-                                                  .jumpToPage(0);
+                                              controller.gotoLogin();
                                             },
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w600,
