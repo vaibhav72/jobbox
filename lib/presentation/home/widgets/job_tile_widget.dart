@@ -66,10 +66,10 @@ class JobTile extends StatelessWidget {
                   ),
                   Text(
                     data.jobTitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w900,
-                        color: MetaColors.textColor),
+                        color: Get.theme.colorScheme.secondary),
                   ),
                   const SizedBox(
                     height: 16,

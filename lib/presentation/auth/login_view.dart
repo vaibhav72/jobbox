@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../utils/helpers.dart';
-import '../../utils/meta_colors.dart';
 import 'controller.dart';
 
 ///The login view widget
@@ -71,12 +70,12 @@ class Loginview extends GetView<AuthFlowController> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              const Text(
+                              Text(
                                 "Forgot Password?",
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
-                                    color: MetaColors.textColor),
+                                    color: Get.theme.colorScheme.secondary),
                               ),
                               const SizedBox(
                                 height: 40,
@@ -109,7 +108,7 @@ class Loginview extends GetView<AuthFlowController> {
                                   ],
                                   style: GoogleFonts.poppins(
                                       fontSize: 15,
-                                      color: MetaColors.textColor),
+                                      color: Get.theme.colorScheme.secondary),
                                 ),
                               ),
                             ],

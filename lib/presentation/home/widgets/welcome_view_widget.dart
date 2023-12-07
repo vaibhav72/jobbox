@@ -26,8 +26,8 @@ class WelcomeView extends GetView<HomeController> {
                 SliverAppBar(
                     snap: true,
                     floating: true,
-                    collapsedHeight: 200 + kToolbarHeight + 20,
-                    expandedHeight: 200 + kToolbarHeight + 20,
+                    collapsedHeight: 200 + kTextTabBarHeight,
+                    expandedHeight: 200 + kTextTabBarHeight,
                     backgroundColor: Get.theme.primaryColor,
                     flexibleSpace: FlexibleSpaceBar(
                       expandedTitleScale: 1,
@@ -64,7 +64,8 @@ class WelcomeView extends GetView<HomeController> {
                                         height: 20,
                                       ),
                                       TextFormField(
-                                        cursorColor: MetaColors.textColor,
+                                        cursorColor:
+                                            Get.theme.colorScheme.secondary,
                                         decoration: InputDecoration(
                                             contentPadding:
                                                 const EdgeInsets.symmetric(
@@ -72,11 +73,12 @@ class WelcomeView extends GetView<HomeController> {
                                                     vertical: 12),
                                             filled: true,
                                             prefixIconColor:
-                                                MetaColors.textColor,
+                                                Get.theme.colorScheme.secondary,
                                             prefixIcon: Icon(
                                               Icons.search,
                                               size: 30,
-                                              color: MetaColors.textColor
+                                              color: Get
+                                                  .theme.colorScheme.secondary
                                                   .withOpacity(0.5),
                                             ),
                                             fillColor: Colors.white10,
@@ -84,7 +86,8 @@ class WelcomeView extends GetView<HomeController> {
                                                 "Start searching for jobs",
                                             hintStyle: GoogleFonts.poppins(
                                                 fontSize: 18,
-                                                color: MetaColors.textColor
+                                                color: Get
+                                                    .theme.colorScheme.secondary
                                                     .withOpacity(0.5)),
                                             border: OutlineInputBorder(
                                                 borderSide: BorderSide.none,

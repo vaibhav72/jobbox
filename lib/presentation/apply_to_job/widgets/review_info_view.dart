@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:employee/utils/meta_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -40,10 +41,10 @@ class ReviewInfoWidget extends GetView<ApplyToJobController> {
             onTap: () {
               controller.gotoExperienceAndEducation();
             },
-            child: const Icon(
+            child: Icon(
               Icons.arrow_back_ios,
-              color: MetaColors.textColor,
-              size: 40,
+              color: Get.theme.colorScheme.secondary,
+              size: 30,
             ),
           ),
         ),
@@ -54,15 +55,11 @@ class ReviewInfoWidget extends GetView<ApplyToJobController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Apply To ${controller.job.value?.companyName ?? ''}",
-                    style: GoogleFonts.autourOne(
-                        fontSize: 25, color: MetaColors.textColor)),
+                    style: MetaStyles.pageTitleStyle),
                 const SizedBox(
                   height: 20,
                 ),
-                Text(
-                  "Review Information",
-                  style: TextStyle(color: Get.theme.primaryColor, fontSize: 15),
-                ),
+                Text("Review Information", style: MetaStyles.pageSubtitleStyle),
                 const SizedBox(
                   height: 10,
                 ),
@@ -83,18 +80,16 @@ class ReviewInfoWidget extends GetView<ApplyToJobController> {
                       children: [
                         Row(
                           children: [
-                            const Expanded(
+                            Expanded(
                               child: Text("Contact Info",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: MetaColors.textColor)),
+                                  style: MetaStyles.fieldTitleStyle),
                             ),
                             SvgPicture.asset(
                               MetaAssets.pencilIcon,
                               height: 20,
-                              colorFilter: const ColorFilter.mode(
-                                  MetaColors.textColor, BlendMode.srcIn),
+                              colorFilter: ColorFilter.mode(
+                                  Get.theme.colorScheme.secondary,
+                                  BlendMode.srcIn),
                             )
                           ],
                         ),
@@ -115,18 +110,13 @@ class ReviewInfoWidget extends GetView<ApplyToJobController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'Full Name',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: MetaColors.secondaryTextColor),
+                                style: MetaStyles.profileFieldSubtTitleStyle,
                               ),
                               Text(
                                 AuthController.to.userModel.value?.name ?? '',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 17,
-                                    color: MetaColors.textColor),
+                                style: MetaStyles.profileFieldValueStyle,
                               )
                             ],
                           ),
@@ -139,18 +129,13 @@ class ReviewInfoWidget extends GetView<ApplyToJobController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'Email',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: MetaColors.secondaryTextColor),
+                                style: MetaStyles.profileFieldSubtTitleStyle,
                               ),
                               Text(
                                 AuthController.to.userModel.value?.email ?? '',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 17,
-                                    color: MetaColors.textColor),
+                                style: MetaStyles.profileFieldValueStyle,
                               )
                             ],
                           ),
@@ -163,20 +148,15 @@ class ReviewInfoWidget extends GetView<ApplyToJobController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'Mobile Number',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: MetaColors.secondaryTextColor),
+                                style: MetaStyles.profileFieldSubtTitleStyle,
                               ),
                               Text(
                                 AuthController
                                         .to.userModel.value?.phoneNumber ??
                                     '',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 17,
-                                    color: MetaColors.textColor),
+                                style: MetaStyles.profileFieldValueStyle,
                               )
                             ],
                           ),
@@ -184,24 +164,24 @@ class ReviewInfoWidget extends GetView<ApplyToJobController> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Divider(color: MetaColors.textColor.withOpacity(0.7)),
+                        Divider(
+                            color: Get.theme.colorScheme.secondary
+                                .withOpacity(0.7)),
                         const SizedBox(
                           height: 10,
                         ),
                         Row(
                           children: [
-                            const Expanded(
+                            Expanded(
                               child: Text("Employment Information",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: MetaColors.textColor)),
+                                  style: MetaStyles.fieldTitleStyle),
                             ),
                             SvgPicture.asset(
                               MetaAssets.pencilIcon,
                               height: 20,
-                              colorFilter: const ColorFilter.mode(
-                                  MetaColors.textColor, BlendMode.srcIn),
+                              colorFilter: ColorFilter.mode(
+                                  Get.theme.colorScheme.secondary,
+                                  BlendMode.srcIn),
                             )
                           ],
                         ),
@@ -213,20 +193,18 @@ class ReviewInfoWidget extends GetView<ApplyToJobController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'Resume',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: MetaColors.secondaryTextColor),
+                                style: MetaStyles.profileFieldSubtTitleStyle,
                               ),
                               if (controller
                                       .jobController.selectedResume.value !=
                                   null)
                                 Row(
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       CupertinoIcons.doc_fill,
-                                      color: MetaColors.textColor,
+                                      color: Get.theme.colorScheme.secondary,
                                       size: 40,
                                     ),
                                     Expanded(
@@ -241,9 +219,10 @@ class ReviewInfoWidget extends GetView<ApplyToJobController> {
                                                   .selectedResume.value!.path
                                                   .split("/")
                                                   .last,
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                   fontSize: 16,
-                                                  color: MetaColors.textColor,
+                                                  color: Get.theme.colorScheme
+                                                      .secondary,
                                                   fontWeight: FontWeight.w600),
                                             ),
                                             const SizedBox(
@@ -253,9 +232,10 @@ class ReviewInfoWidget extends GetView<ApplyToJobController> {
                                               DateFormat('dd/MM/yy').format(
                                                 DateTime.now(),
                                               ),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontSize: 12,
-                                                color: MetaColors.textColor,
+                                                color: Get.theme.colorScheme
+                                                    .secondary,
                                               ),
                                             )
                                           ],
@@ -275,20 +255,18 @@ class ReviewInfoWidget extends GetView<ApplyToJobController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'Cover Letter',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: MetaColors.secondaryTextColor),
+                                style: MetaStyles.profileFieldSubtTitleStyle,
                               ),
                               if (controller.jobController.selectedCoverLetter
                                       .value !=
                                   null)
                                 Row(
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       CupertinoIcons.doc_fill,
-                                      color: MetaColors.textColor,
+                                      color: Get.theme.colorScheme.secondary,
                                       size: 40,
                                     ),
                                     Expanded(
@@ -303,9 +281,10 @@ class ReviewInfoWidget extends GetView<ApplyToJobController> {
                                                   .selectedResume.value!.path
                                                   .split("/")
                                                   .last,
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                   fontSize: 16,
-                                                  color: MetaColors.textColor,
+                                                  color: Get.theme.colorScheme
+                                                      .secondary,
                                                   fontWeight: FontWeight.w600),
                                             ),
                                             const SizedBox(
@@ -315,9 +294,10 @@ class ReviewInfoWidget extends GetView<ApplyToJobController> {
                                               DateFormat('dd/MM/yy').format(
                                                 DateTime.now(),
                                               ),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontSize: 12,
-                                                color: MetaColors.textColor,
+                                                color: Get.theme.colorScheme
+                                                    .secondary,
                                               ),
                                             )
                                           ],
@@ -337,12 +317,8 @@ class ReviewInfoWidget extends GetView<ApplyToJobController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'Additional Skills',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: MetaColors.secondaryTextColor),
-                              ),
+                              Text('Additional Skills',
+                                  style: MetaStyles.profileFieldSubtTitleStyle),
                               Wrap(
                                 children: [
                                   for (var skill in controller.skills.value!)
@@ -351,16 +327,18 @@ class ReviewInfoWidget extends GetView<ApplyToJobController> {
                                       child: Container(
                                         decoration: BoxDecoration(
                                             border: Border.all(
-                                                color: MetaColors.textColor),
+                                                color: Get.theme.colorScheme
+                                                    .secondary),
                                             borderRadius:
                                                 BorderRadius.circular(10)),
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(
                                             skill,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 fontSize: 16,
-                                                color: MetaColors.textColor,
+                                                color: Get.theme.colorScheme
+                                                    .secondary,
                                                 fontWeight: FontWeight.w600),
                                           ),
                                         ),

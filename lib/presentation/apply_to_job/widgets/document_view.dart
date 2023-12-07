@@ -1,7 +1,8 @@
+import 'package:employee/utils/meta_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:intl/intl.dart';
 
 import '../../../data/models/document_model.dart';
@@ -34,163 +35,158 @@ class DocumentUploadview extends GetView<ApplyToJobController> {
             onTap: () {
               controller.endApplication();
             },
-            child: const Icon(
+            child: Icon(
               Icons.close,
-              color: MetaColors.textColor,
+              color: Get.theme.colorScheme.secondary,
               size: 40,
             ),
           ),
         ),
         body: Obx(
-          () => Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Apply To ${controller.job.value?.companyName ?? ''}",
-                    style: GoogleFonts.autourOne(
-                        fontSize: 25, color: MetaColors.textColor)),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Uploading of Documents",
-                  style: TextStyle(color: Get.theme.primaryColor, fontSize: 15),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: LinearProgressIndicator(
-                    value: 0.25,
-                    backgroundColor: Get.theme.primaryColor.withOpacity(0.2),
-                    color: Get.theme.primaryColor,
+          () {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Apply To ${controller.job.value?.companyName ?? ''}",
+                      style: MetaStyles.pageTitleStyle),
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
-                                  Text("Resume",
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: MetaColors.textColor)),
-                                  Text(
-                                      "Remember to include your most updated resume",
-                                      style: TextStyle(
-                                          fontSize: 13,
-                                          color:
-                                              MetaColors.secondaryTextColor)),
-                                ],
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                controller.pickResume();
-                              },
-                              child: const Icon(
-                                Icons.add,
-                                size: 40,
-                                color: MetaColors.textColor,
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Column(
-                          children: controller.resume
-                              .map((e) => DocTile(
-                                    data: e!,
-                                    onTap: () {
-                                      controller.jobController
-                                          .selectedResume(e);
-                                    },
-                                    selected: controller.jobController
-                                            .selectedResume.value ==
-                                        e,
-                                  ))
-                              .toList(),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
-                                  Text("Cover Letter",
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: MetaColors.textColor)),
-                                  Text("Stand out with your cover letter",
-                                      style: TextStyle(
-                                          fontSize: 13,
-                                          color:
-                                              MetaColors.secondaryTextColor)),
-                                ],
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                controller.pickCoverLetter();
-                              },
-                              child: const Icon(
-                                Icons.add,
-                                size: 40,
-                                color: MetaColors.textColor,
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Column(
-                          children: controller.coverLetter
-                              .map((e) => DocTile(
-                                    data: e!,
-                                    onTap: () {
-                                      controller.jobController
-                                          .selectCoverLetter(e);
-                                    },
-                                    selected: controller.jobController
-                                            .selectedCoverLetter.value ==
-                                        e,
-                                  ))
-                              .toList(),
-                        )
-                      ],
+                  Text(
+                    "Uploading of Documents",
+                    style: MetaStyles.pageSubtitleStyle,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: LinearProgressIndicator(
+                      value: 0.25,
+                      backgroundColor: Get.theme.primaryColor.withOpacity(0.2),
+                      color: Get.theme.primaryColor,
                     ),
                   ),
-                ),
-                CustomButton(
-                  title: "Proceed",
-                  onTap: () {
-                    controller.saveDocumentsAndProceed();
-                  },
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
-          ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Resume",
+                                        style: MetaStyles.fieldTitleStyle),
+                                    Text(
+                                        "Remember to include your most updated resume",
+                                        style: MetaStyles.fieldSubtitleStyle
+                                            .copyWith(
+                                                color: MetaColors
+                                                    .secondaryTextColor)),
+                                  ],
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  controller.pickResume();
+                                },
+                                child: Icon(
+                                  Icons.add,
+                                  size: 40,
+                                  color: Get.theme.colorScheme.secondary,
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Column(
+                            children: controller.resume
+                                .map((e) => DocTile(
+                                      data: e!,
+                                      onTap: () {
+                                        controller.jobController
+                                            .selectedResume(e);
+                                      },
+                                      selected: controller.jobController
+                                              .selectedResume.value ==
+                                          e,
+                                    ))
+                                .toList(),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Cover Letter",
+                                        style: MetaStyles.fieldTitleStyle),
+                                    Text("Stand out with your cover letter",
+                                        style: MetaStyles.fieldSubtitleStyle
+                                            .copyWith(
+                                                color: MetaColors
+                                                    .secondaryTextColor)),
+                                  ],
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  controller.pickCoverLetter();
+                                },
+                                child: Icon(
+                                  Icons.add,
+                                  size: 40,
+                                  color: Get.theme.colorScheme.secondary,
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Column(
+                            children: controller.coverLetter
+                                .map((e) => DocTile(
+                                      data: e!,
+                                      onTap: () {
+                                        controller.jobController
+                                            .selectCoverLetter(e);
+                                      },
+                                      selected: controller.jobController
+                                              .selectedCoverLetter.value ==
+                                          e,
+                                    ))
+                                .toList(),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  CustomButton(
+                    title: "Proceed",
+                    onTap: () {
+                      controller.saveDocumentsAndProceed();
+                    },
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );

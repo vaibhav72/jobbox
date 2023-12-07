@@ -5,9 +5,11 @@ import 'package:employee/data/controllers/job_controller.dart';
 
 import 'package:employee/utils/helpers.dart';
 import 'package:employee/utils/meta_assets.dart';
+import 'package:employee/utils/meta_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -30,7 +32,7 @@ class ProfileWidget extends StatelessWidget {
             Text(
               "Your Profile",
               style: GoogleFonts.autourOne(
-                  color: MetaColors.textColor,
+                  color: Get.theme.colorScheme.secondary,
                   fontSize: 20,
                   fontWeight: FontWeight.w500),
             ),
@@ -39,8 +41,8 @@ class ProfileWidget extends StatelessWidget {
               child: SvgPicture.asset(
                 MetaAssets.personIcon,
                 height: 20,
-                colorFilter: const ColorFilter.mode(
-                    MetaColors.textColor, BlendMode.srcIn),
+                colorFilter: ColorFilter.mode(
+                    Get.theme.colorScheme.secondary, BlendMode.srcIn),
               ),
             )
           ],
@@ -66,15 +68,15 @@ class ProfileWidget extends StatelessWidget {
                                           .to.userModel.value?.profilePic ??
                                       ''))
                                   : null),
-                      const Align(
+                      Align(
                         alignment: Alignment.bottomRight,
                         child: CircleAvatar(
                           radius: 17,
                           backgroundColor: Colors.white,
                           child: CircleAvatar(
-                            backgroundColor: MetaColors.textColor,
+                            backgroundColor: Get.theme.colorScheme.secondary,
                             radius: 15,
-                            child: Icon(
+                            child: const Icon(
                               Icons.add,
                               color: Colors.white,
                             ),
@@ -87,18 +89,16 @@ class ProfileWidget extends StatelessWidget {
               ),
               Row(
                 children: [
-                  const Expanded(
-                    child: Text("Contact Info",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: MetaColors.textColor)),
-                  ),
+                  Expanded(
+                      child: Text(
+                    "Contact Info",
+                    style: MetaStyles.profileFieldTitleStyle,
+                  )),
                   SvgPicture.asset(
                     MetaAssets.pencilIcon,
                     height: 20,
-                    colorFilter: const ColorFilter.mode(
-                        MetaColors.textColor, BlendMode.srcIn),
+                    colorFilter: ColorFilter.mode(
+                        Get.theme.colorScheme.secondary, BlendMode.srcIn),
                   )
                 ],
               ),
@@ -110,18 +110,12 @@ class ProfileWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Full Name',
-                      style: TextStyle(
-                          fontSize: 16, color: MetaColors.secondaryTextColor),
+                      style: MetaStyles.profileFieldSubtTitleStyle,
                     ),
-                    Text(
-                      AuthController.to.userModel.value?.name ?? '',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 17,
-                          color: MetaColors.textColor),
-                    )
+                    Text(AuthController.to.userModel.value?.name ?? '',
+                        style: MetaStyles.profileFieldValueStyle)
                   ],
                 ),
               ),
@@ -133,18 +127,12 @@ class ProfileWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Email',
-                      style: TextStyle(
-                          fontSize: 16, color: MetaColors.secondaryTextColor),
+                      style: MetaStyles.profileFieldSubtTitleStyle,
                     ),
-                    Text(
-                      AuthController.to.userModel.value?.email ?? '',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 17,
-                          color: MetaColors.textColor),
-                    )
+                    Text(AuthController.to.userModel.value?.email ?? '',
+                        style: MetaStyles.profileFieldValueStyle)
                   ],
                 ),
               ),
@@ -156,17 +144,13 @@ class ProfileWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Mobile Number',
-                      style: TextStyle(
-                          fontSize: 16, color: MetaColors.secondaryTextColor),
+                      style: MetaStyles.profileFieldSubtTitleStyle,
                     ),
                     Text(
                       AuthController.to.userModel.value?.phoneNumber ?? '',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 17,
-                          color: MetaColors.textColor),
+                      style: MetaStyles.profileFieldValueStyle,
                     )
                   ],
                 ),
@@ -174,24 +158,21 @@ class ProfileWidget extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Divider(color: MetaColors.textColor.withOpacity(0.7)),
+              Divider(color: Get.theme.colorScheme.secondary.withOpacity(0.7)),
               const SizedBox(
                 height: 10,
               ),
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Text("Employment Information",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: MetaColors.textColor)),
+                        style: MetaStyles.profileFieldTitleStyle),
                   ),
                   SvgPicture.asset(
                     MetaAssets.pencilIcon,
                     height: 20,
-                    colorFilter: const ColorFilter.mode(
-                        MetaColors.textColor, BlendMode.srcIn),
+                    colorFilter: ColorFilter.mode(
+                        Get.theme.colorScheme.secondary, BlendMode.srcIn),
                   )
                 ],
               ),
@@ -203,17 +184,16 @@ class ProfileWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Resume',
-                      style: TextStyle(
-                          fontSize: 16, color: MetaColors.secondaryTextColor),
+                      style: MetaStyles.profileFieldSubtTitleStyle,
                     ),
                     if (JobController.to.selectedResume.value != null)
                       Row(
                         children: [
-                          const Icon(
+                          Icon(
                             CupertinoIcons.doc_fill,
-                            color: MetaColors.textColor,
+                            color: Get.theme.colorScheme.secondary,
                             size: 40,
                           ),
                           Expanded(
@@ -224,9 +204,9 @@ class ProfileWidget extends StatelessWidget {
                                 children: [
                                   Text(
                                     "${JobController.to.selectedResume.value?.path.split('/').last}",
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontSize: 16,
-                                        color: MetaColors.textColor,
+                                        color: Get.theme.colorScheme.secondary,
                                         fontWeight: FontWeight.w600),
                                   ),
                                   const SizedBox(
@@ -235,9 +215,9 @@ class ProfileWidget extends StatelessWidget {
                                   Text(
                                     DateFormat('dd/MM/yy').format(JobController
                                         .to.selectedResume.value!.date),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 12,
-                                      color: MetaColors.textColor,
+                                      color: Get.theme.colorScheme.secondary,
                                     ),
                                   )
                                 ],
@@ -257,17 +237,16 @@ class ProfileWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Cover Letter',
-                      style: TextStyle(
-                          fontSize: 16, color: MetaColors.secondaryTextColor),
+                      style: MetaStyles.profileFieldSubtTitleStyle,
                     ),
                     if (JobController.to.selectedCoverLetter.value != null)
                       Row(
                         children: [
-                          const Icon(
+                          Icon(
                             CupertinoIcons.doc_fill,
-                            color: MetaColors.textColor,
+                            color: Get.theme.colorScheme.secondary,
                             size: 40,
                           ),
                           Expanded(
@@ -278,9 +257,9 @@ class ProfileWidget extends StatelessWidget {
                                 children: [
                                   Text(
                                     "${JobController.to.selectedCoverLetter.value?.path.split('/').last}",
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontSize: 16,
-                                        color: MetaColors.textColor,
+                                        color: Get.theme.colorScheme.secondary,
                                         fontWeight: FontWeight.w600),
                                   ),
                                   const SizedBox(
@@ -292,9 +271,9 @@ class ProfileWidget extends StatelessWidget {
                                               ?.date ??
                                           DateTime.now(),
                                     ),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 12,
-                                      color: MetaColors.textColor,
+                                      color: Get.theme.colorScheme.secondary,
                                     ),
                                   )
                                 ],

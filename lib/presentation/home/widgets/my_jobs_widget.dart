@@ -26,7 +26,7 @@ class MyJobs extends GetView<HomeController> {
             Text(
               "Your Applied Jobs",
               style: GoogleFonts.autourOne(
-                  color: MetaColors.textColor,
+                  color: Get.theme.colorScheme.secondary,
                   fontSize: 20,
                   fontWeight: FontWeight.w500),
             ),
@@ -35,8 +35,8 @@ class MyJobs extends GetView<HomeController> {
               child: SvgPicture.asset(
                 MetaAssets.pencilIcon,
                 height: 20,
-                colorFilter: const ColorFilter.mode(
-                    MetaColors.textColor, BlendMode.srcIn),
+                colorFilter: ColorFilter.mode(
+                    Get.theme.colorScheme.secondary, BlendMode.srcIn),
               ),
             )
           ],

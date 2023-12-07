@@ -18,19 +18,19 @@ InputDecoration formDecoration({String? hint, bool? obscure, Widget? suffix}) {
       hintStyle: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
-          color: MetaColors.textColor.withOpacity(0.7)),
+          color: Get.theme.colorScheme.secondary.withOpacity(0.7)),
       border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: MetaColors.textColor)),
+          borderSide: BorderSide(color: Get.theme.colorScheme.secondary)),
       enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: MetaColors.textColor)),
+          borderSide: BorderSide(color: Get.theme.colorScheme.secondary)),
       disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: MetaColors.textColor)),
+          borderSide: BorderSide(color: Get.theme.colorScheme.secondary)),
       focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: MetaColors.textColor)));
+          borderSide: BorderSide(color: Get.theme.colorScheme.secondary)));
 }
 
 ///A custom textfield for all textfields across the app to maintain consistency
@@ -60,10 +60,10 @@ class CustomTextField extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w500,
-              color: MetaColors.textColor),
+              color: Get.theme.colorScheme.secondary),
         ),
         const SizedBox(
           height: 8,
@@ -72,7 +72,7 @@ class CustomTextField extends StatelessWidget {
           controller: controller,
           validator: validator,
           inputFormatters: inputFormatters,
-          cursorColor: MetaColors.textColor,
+          cursorColor: Get.theme.colorScheme.secondary,
           obscureText: obscure ?? false,
           decoration: formDecoration(hint: hint, obscure: obscure),
         )
@@ -100,7 +100,7 @@ class LogoWidget extends StatelessWidget {
           TextSpan(
             text: "box",
             style: GoogleFonts.autourOne(
-                color: MetaColors.textColor,
+                color: Get.theme.colorScheme.secondary,
                 fontSize: 50,
                 fontWeight: FontWeight.w500),
           )
@@ -215,10 +215,10 @@ class ApplySheet extends StatelessWidget {
                       ),
                       Text(
                         job.jobTitle,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w900,
-                            color: MetaColors.textColor),
+                            color: Get.theme.colorScheme.secondary),
                       ),
                       const SizedBox(
                         height: 10,
@@ -231,55 +231,55 @@ class ApplySheet extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      const Align(
+                      Align(
                         alignment: Alignment.centerLeft,
                         child: Text("Job Description",
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w900,
-                                color: MetaColors.textColor)),
+                                color: Get.theme.colorScheme.secondary)),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       Text(
                         job.description,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
-                            color: MetaColors.textColor),
+                            color: Get.theme.colorScheme.secondary),
                       ),
                       const SizedBox(
                         height: 30,
                       ),
-                      const Align(
+                      Align(
                         alignment: Alignment.centerLeft,
                         child: Text("Requirements",
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w900,
-                                color: MetaColors.textColor)),
+                                color: Get.theme.colorScheme.secondary)),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       Text(
                         job.requirements,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
-                            color: MetaColors.textColor),
+                            color: Get.theme.colorScheme.secondary),
                       ),
                       const SizedBox(
                         height: 30,
                       ),
-                      const Align(
+                      Align(
                         alignment: Alignment.centerLeft,
                         child: Text("Salary Range",
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w900,
-                                color: MetaColors.textColor)),
+                                color: Get.theme.colorScheme.secondary)),
                       ),
                       const SizedBox(
                         height: 10,
@@ -288,22 +288,22 @@ class ApplySheet extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           job.salaryRange,
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w400,
-                              color: MetaColors.textColor),
+                              color: Get.theme.colorScheme.secondary),
                         ),
                       ),
                       const SizedBox(
                         height: 30,
                       ),
-                      const Align(
+                      Align(
                         alignment: Alignment.centerLeft,
                         child: Text("Posted At",
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w900,
-                                color: MetaColors.textColor)),
+                                color: Get.theme.colorScheme.secondary)),
                       ),
                       const SizedBox(
                         height: 10,
@@ -312,10 +312,10 @@ class ApplySheet extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           DateFormat('dd MMM , yyyy').format(job.postedAt),
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w400,
-                              color: MetaColors.textColor),
+                              color: Get.theme.colorScheme.secondary),
                         ),
                       ),
                       const SizedBox(
@@ -403,8 +403,8 @@ class CustomSwitcher extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
               color: !isSelected
-                  ? MetaColors.textColor.withOpacity(0.7)
-                  : MetaColors.textColor,
+                  ? Get.theme.colorScheme.secondary.withOpacity(0.7)
+                  : Get.theme.colorScheme.secondary,
             )),
         child: Padding(
           padding: const EdgeInsets.all(2.0),
@@ -415,8 +415,8 @@ class CustomSwitcher extends StatelessWidget {
             child: CircleAvatar(
               radius: 14,
               backgroundColor: !isSelected
-                  ? MetaColors.textColor.withOpacity(0.7)
-                  : MetaColors.textColor,
+                  ? Get.theme.colorScheme.secondary.withOpacity(0.7)
+                  : Get.theme.colorScheme.secondary,
             ),
           ),
         ),

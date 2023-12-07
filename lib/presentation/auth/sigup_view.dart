@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../utils/helpers.dart';
-import '../../utils/meta_colors.dart';
+
 import 'controller.dart';
 
 ///The signup view widget
@@ -200,7 +200,8 @@ class Signupview extends GetView<AuthFlowController> {
                                       ],
                                       style: GoogleFonts.poppins(
                                           fontSize: 15,
-                                          color: MetaColors.textColor),
+                                          color:
+                                              Get.theme.colorScheme.secondary),
                                     ),
                                   ),
                                 ],
@@ -225,7 +226,7 @@ class Signupview extends GetView<AuthFlowController> {
                                     text: " and ",
                                     style: GoogleFonts.poppins(
                                         fontSize: 13,
-                                        color: MetaColors.textColor),
+                                        color: Get.theme.colorScheme.secondary),
                                   ),
                                   TextSpan(
                                     text: "Privacy Policy",
@@ -235,7 +236,8 @@ class Signupview extends GetView<AuthFlowController> {
                                   ),
                                 ],
                                 style: GoogleFonts.poppins(
-                                    fontSize: 13, color: MetaColors.textColor),
+                                    fontSize: 13,
+                                    color: Get.theme.colorScheme.secondary),
                               ),
                             ),
                           ),

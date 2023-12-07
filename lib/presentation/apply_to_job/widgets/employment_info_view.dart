@@ -1,10 +1,10 @@
+import 'package:employee/utils/meta_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils/helpers.dart';
-import '../../../utils/meta_colors.dart';
+
 import '../controller.dart';
 
 ///The EmployeeInfoWidget is a widget that displays the employment information of the user.
@@ -31,10 +31,10 @@ class EmployeeInfoWidget extends GetView<ApplyToJobController> {
             onTap: () {
               controller.gotoDocuments();
             },
-            child: const Icon(
+            child: Icon(
               Icons.arrow_back_ios,
-              color: MetaColors.textColor,
-              size: 40,
+              color: Get.theme.colorScheme.secondary,
+              size: 30,
             ),
           ),
         ),
@@ -44,14 +44,13 @@ class EmployeeInfoWidget extends GetView<ApplyToJobController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("Apply To ${controller.job.value?.companyName ?? ''}",
-                  style: GoogleFonts.autourOne(
-                      fontSize: 25, color: MetaColors.textColor)),
+                  style: MetaStyles.pageTitleStyle),
               const SizedBox(
                 height: 20,
               ),
               Text(
                 "Employment Information",
-                style: TextStyle(color: Get.theme.primaryColor, fontSize: 15),
+                style: MetaStyles.pageSubtitleStyle,
               ),
               const SizedBox(
                 height: 10,
@@ -59,7 +58,7 @@ class EmployeeInfoWidget extends GetView<ApplyToJobController> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: LinearProgressIndicator(
-                  value: 0.25,
+                  value: 0.5,
                   backgroundColor: Get.theme.primaryColor.withOpacity(0.2),
                   color: Get.theme.primaryColor,
                 ),
@@ -69,280 +68,279 @@ class EmployeeInfoWidget extends GetView<ApplyToJobController> {
               ),
               Expanded(
                 child: Obx(
-                  () => SingleChildScrollView(
-                    child: Form(
-                      key: controller.formKey,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text("Education",
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: MetaColors.textColor)),
-                                    Text("Included in resume",
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            color: MetaColors.textColor)),
-                                  ],
-                                ),
-                              ),
-                              Obx(
-                                () => CustomSwitcher(
-                                  isSelected: controller
-                                      .educationIncludedInResume.value!,
-                                  onTap: () {
-                                    controller.educationIncludedInResume.value =
-                                        !controller
-                                            .educationIncludedInResume.value!;
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          if (!controller.educationIncludedInResume.value!)
-                            Column(
+                  () {
+                    return SingleChildScrollView(
+                      child: Form(
+                        key: controller.formKey,
+                        child: Column(
+                          children: [
+                            Row(
                               children: [
-                                CustomTextField(
-                                    title: "Name of School",
-                                    controller: controller.schoolNameController,
-                                    validator: (p0) {
-                                      if (p0!.isEmpty) {
-                                        return "Please enter name of school";
-                                      }
-                                      return null;
-                                    },
-                                    hint: "Enter name of school"),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                CustomTextField(
-                                    title: "Course of Study",
-                                    controller: controller.degreeController,
-                                    validator: (p0) {
-                                      if (p0!.isEmpty) {
-                                        return "Please enter course of study";
-                                      }
-                                      return null;
-                                    },
-                                    hint: "Enter name of course"),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                CustomTextField(
-                                    controller:
-                                        controller.yearOfGraduationController,
-                                    validator: (p0) {
-                                      if (p0!.isEmpty) {
-                                        return "Please enter year of graduation";
-                                      }
-                                      return null;
-                                    },
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly,
-                                      LengthLimitingTextInputFormatter(4),
-                                    ],
-                                    title: "Year graduated",
-                                    hint: "Enter year graduated"),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                              ],
-                            ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text("Work Experience",
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: MetaColors.textColor)),
-                                    Text("Included in resume",
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            color: MetaColors.textColor)),
-                                  ],
-                                ),
-                              ),
-                              Obx(
-                                () => CustomSwitcher(
-                                  isSelected: controller
-                                      .experienceIncludedInResume.value!,
-                                  onTap: () {
-                                    controller
-                                            .experienceIncludedInResume.value =
-                                        !controller
-                                            .experienceIncludedInResume.value!;
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          if (!controller.experienceIncludedInResume.value!)
-                            Column(
-                              children: [
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                CustomTextField(
-                                    title: "Name of Company",
-                                    controller:
-                                        controller.companyNameController,
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Company name is required";
-                                      }
-                                      return null;
-                                    },
-                                    hint: "Enter name of Company"),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                CustomTextField(
-                                    controller: controller.jobTitleController,
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Job title is required";
-                                      }
-                                      return null;
-                                    },
-                                    title: "Job Title",
-                                    hint: "Enter job title"),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                CustomTextField(
-                                    controller: controller.experienceController,
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Experience is required";
-                                      }
-                                      return null;
-                                    },
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly,
-                                      LengthLimitingTextInputFormatter(2),
-                                    ],
-                                    title: "Total years of experience",
-                                    hint: "Enter year of experience"),
-                              ],
-                            ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Additional Skills",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: MetaColors.textColor)),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Get.dialog(Center(
-                                child: AlertDialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12)),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      CustomTextField(
-                                          controller:
-                                              controller.skillController,
-                                          title: "Skill",
-                                          hint: "Enter Skill"),
+                                      Text("Education",
+                                          style: MetaStyles.fieldTitleStyle),
+                                      Text("Included in resume",
+                                          style: MetaStyles.fieldSubtitleStyle),
                                     ],
                                   ),
-                                  actions: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: CustomButton(
-                                        title: "Add",
-                                        onTap: () {
-                                          controller.addSkill();
-                                        },
-                                      ),
-                                    )
-                                  ],
                                 ),
-                              ));
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  border:
-                                      Border.all(color: MetaColors.textColor)),
-                              child: Padding(
-                                padding: EdgeInsets.all(
-                                    controller.skills.value!.isNotEmpty
-                                        ? 0
-                                        : 16),
-                                child: Row(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.all(
-                                          !controller.skills.value!.isNotEmpty
-                                              ? 0
-                                              : 8),
-                                      child: const Icon(Icons.search),
+                                Obx(
+                                  () => CustomSwitcher(
+                                    isSelected: controller
+                                        .educationIncludedInResume.value!,
+                                    onTap: () {
+                                      controller
+                                              .educationIncludedInResume.value =
+                                          !controller
+                                              .educationIncludedInResume.value!;
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            if (!controller.educationIncludedInResume.value!)
+                              Column(
+                                children: [
+                                  CustomTextField(
+                                      title: "Name of School",
+                                      controller:
+                                          controller.schoolNameController,
+                                      validator: (p0) {
+                                        if (p0!.isEmpty) {
+                                          return "Please enter name of school";
+                                        }
+                                        return null;
+                                      },
+                                      hint: "Enter name of school"),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  CustomTextField(
+                                      title: "Course of Study",
+                                      controller: controller.degreeController,
+                                      validator: (p0) {
+                                        if (p0!.isEmpty) {
+                                          return "Please enter course of study";
+                                        }
+                                        return null;
+                                      },
+                                      hint: "Enter name of course"),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  CustomTextField(
+                                      controller:
+                                          controller.yearOfGraduationController,
+                                      validator: (p0) {
+                                        if (p0!.isEmpty) {
+                                          return "Please enter year of graduation";
+                                        }
+                                        return null;
+                                      },
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly,
+                                        LengthLimitingTextInputFormatter(4),
+                                      ],
+                                      title: "Year graduated",
+                                      hint: "Enter year graduated"),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                ],
+                              ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Work Experience",
+                                          style: MetaStyles.fieldTitleStyle),
+                                      Text("Included in resume",
+                                          style: MetaStyles.fieldSubtitleStyle),
+                                    ],
+                                  ),
+                                ),
+                                Obx(
+                                  () => CustomSwitcher(
+                                    isSelected: controller
+                                        .experienceIncludedInResume.value!,
+                                    onTap: () {
+                                      controller.experienceIncludedInResume
+                                              .value =
+                                          !controller.experienceIncludedInResume
+                                              .value!;
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            if (!controller.experienceIncludedInResume.value!)
+                              Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  CustomTextField(
+                                      title: "Name of Company",
+                                      controller:
+                                          controller.companyNameController,
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "Company name is required";
+                                        }
+                                        return null;
+                                      },
+                                      hint: "Enter name of Company"),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  CustomTextField(
+                                      controller: controller.jobTitleController,
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "Job title is required";
+                                        }
+                                        return null;
+                                      },
+                                      title: "Job Title",
+                                      hint: "Enter job title"),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  CustomTextField(
+                                      controller:
+                                          controller.experienceController,
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "Experience is required";
+                                        }
+                                        return null;
+                                      },
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly,
+                                        LengthLimitingTextInputFormatter(2),
+                                      ],
+                                      title: "Total years of experience",
+                                      hint: "Enter year of experience"),
+                                ],
+                              ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text("Additional Skills",
+                                  style: MetaStyles.fieldTitleStyle),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Get.dialog(Center(
+                                  child: AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        CustomTextField(
+                                            controller:
+                                                controller.skillController,
+                                            title: "Skill",
+                                            hint: "Enter Skill"),
+                                      ],
                                     ),
-                                    Expanded(
-                                        child: Obx(
-                                      () => Wrap(
-                                        children: controller.skills.value!
-                                            .map((e) => Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Chip(
-                                                    deleteIcon: const Icon(
-                                                      Icons.close,
-                                                      color: Colors.white,
-                                                    ),
-                                                    backgroundColor:
-                                                        Get.theme.primaryColor,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        12)),
-                                                    label: Text(
-                                                      e,
-                                                      style: const TextStyle(
-                                                          color: Colors.white),
-                                                    ),
-                                                    onDeleted: () {
-                                                      controller.removeSkill(e);
-                                                    },
-                                                  ),
-                                                ))
-                                            .toList(),
+                                    actions: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: CustomButton(
+                                          title: "Add",
+                                          onTap: () {
+                                            controller.addSkill();
+                                          },
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ));
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                        color:
+                                            Get.theme.colorScheme.secondary)),
+                                child: Padding(
+                                  padding: EdgeInsets.all(
+                                      controller.skills.value!.isNotEmpty
+                                          ? 0
+                                          : 16),
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(
+                                            !controller.skills.value!.isNotEmpty
+                                                ? 0
+                                                : 8),
+                                        child: const Icon(Icons.search),
                                       ),
-                                    ))
-                                  ],
+                                      Expanded(
+                                          child: Obx(
+                                        () => Wrap(
+                                          children: controller.skills.value!
+                                              .map((e) => Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Chip(
+                                                      deleteIcon: const Icon(
+                                                        Icons.close,
+                                                        color: Colors.white,
+                                                      ),
+                                                      backgroundColor: Get
+                                                          .theme.primaryColor,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          12)),
+                                                      label: Text(
+                                                        e,
+                                                        style: const TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      onDeleted: () {
+                                                        controller
+                                                            .removeSkill(e);
+                                                      },
+                                                    ),
+                                                  ))
+                                              .toList(),
+                                        ),
+                                      ))
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
               ),
               CustomButton(
