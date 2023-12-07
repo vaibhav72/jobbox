@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'auth.dart';
+import 'presentation/auth/controller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,6 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     HomeBinding().dependencies();
     Get.put(AuthController());
+    Get.put(AuthFlowController());
     Get.put(JobController());
 
     Future.delayed(Duration(seconds: 2), () {

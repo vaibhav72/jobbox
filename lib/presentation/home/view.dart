@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:employee/data/models/job_model.dart';
+import 'package:employee/utils/helpers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +12,8 @@ import 'package:intl/intl.dart';
 
 import 'package:employee/presentation/home/controller.dart';
 import 'package:employee/utils/meta_colors.dart';
+
+import '../../data/controllers/auth_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
@@ -37,7 +41,7 @@ class HomeView extends GetView<HomeController> {
                         icon: Icon(Icons.person), label: 'Profile')
                   ]),
               backgroundColor: Colors.white,
-              body: controller.selectedBottomIndex.value != 2
+              body: controller.selectedBottomIndex.value == 2
                   ? Scaffold(
                       appBar: AppBar(
                         backgroundColor: Colors.transparent,
@@ -70,8 +74,20 @@ class HomeView extends GetView<HomeController> {
                                   child: Stack(
                                     children: [
                                       CircleAvatar(
-                                        radius: 60,
-                                      ),
+                                          radius: 60,
+                                          backgroundImage: AuthController
+                                                      .to
+                                                      .userModel
+                                                      .value
+                                                      ?.profilePic !=
+                                                  null
+                                              ? FileImage(File(AuthController
+                                                      .to
+                                                      .userModel
+                                                      .value
+                                                      ?.profilePic ??
+                                                  ''))
+                                              : null),
                                       Align(
                                         alignment: Alignment.bottomRight,
                                         child: CircleAvatar(
@@ -119,7 +135,7 @@ class HomeView extends GetView<HomeController> {
                                           color: MetaColors.secondaryTextColor),
                                     ),
                                     Text(
-                                      'Test',
+                                      '${AuthController.to.userModel.value?.name ?? ''}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 17,
@@ -143,7 +159,7 @@ class HomeView extends GetView<HomeController> {
                                           color: MetaColors.secondaryTextColor),
                                     ),
                                     Text(
-                                      'Test',
+                                      '${AuthController.to.userModel.value?.email ?? ''}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 17,
@@ -167,7 +183,7 @@ class HomeView extends GetView<HomeController> {
                                           color: MetaColors.secondaryTextColor),
                                     ),
                                     Text(
-                                      'Test',
+                                      '${AuthController.to.userModel.value?.phoneNumber ?? ''}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 17,
@@ -312,12 +328,21 @@ class HomeView extends GetView<HomeController> {
                                   ],
                                 ),
                               ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              CustomButton(
+                                title: "Log out",
+                                onTap: () {
+                                  AuthController.to.logout();
+                                },
+                              )
                             ],
                           ),
                         ),
                       ),
                     )
-                  : controller.selectedBottomIndex.value != 1
+                  : controller.selectedBottomIndex.value == 1
                       ? Scaffold(
                           appBar: AppBar(
                             backgroundColor: Colors.transparent,
@@ -379,7 +404,7 @@ class HomeView extends GetView<HomeController> {
                                           return JobTile(
                                               onTap: () {},
                                               data: controller
-                                                  .appliedJobs[index]);
+                                                  .appliedJobs[index].job);
                                         }))
                               ],
                             ),
@@ -428,7 +453,7 @@ class HomeView extends GetView<HomeController> {
                                                                 .start,
                                                         children: [
                                                           Text(
-                                                            "Hi Mark 👋🏻",
+                                                            "Hi ${AuthController.to.userModel.value?.name ?? ''} 👋🏻",
                                                             style: GoogleFonts
                                                                 .poppins(
                                                                     fontSize:

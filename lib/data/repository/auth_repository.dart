@@ -16,8 +16,31 @@ class AuthRepository {
   Future<UserModel> login(String email, String password) async {
     try {
       ///logic for api calls but now temporarily using local auth
-      await preferences.setString("token", email);
-      return UserModel(email: email);
+      bool registered = preferences.containsKey(email);
+      if (!registered) {
+        throw Exception("User not registered");
+      }
+      String passwordFromStorage =
+          preferences.getString("${email}password") ?? '';
+      if (passwordFromStorage == password) {
+        await preferences.setString("token", email);
+        return getUserDetails();
+      } else {
+        throw Exception("Invalid Credentials");
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<UserModel> register(UserModel data, String password) async {
+    try {
+      ///logic for api calls but now temporarily using local auth
+      await preferences.setString("token", data.email);
+      await preferences.setString(data.email, data.toJson());
+      await preferences.setString(("${data.email}password"), password);
+
+      return data;
     } catch (e) {
       rethrow;
     }
@@ -25,7 +48,9 @@ class AuthRepository {
 
   Future<bool> isLoggedIn() async {
     try {
-      return preferences.getString('token') == null;
+      if (preferences == null)
+        preferences = await SharedPreferences.getInstance();
+      return preferences.getString('token') != null;
     } catch (e) {
       rethrow;
     }
@@ -33,8 +58,14 @@ class AuthRepository {
 
   UserModel getUserDetails() {
     try {
-      String? email = preferences.getString('token');
-      return UserModel(email: email!);
+      String email = preferences.getString('token') ?? '';
+      String? data = preferences.getString(email);
+      if (data != null) {
+        return UserModel.fromJson(data);
+      } else {
+        preferences.remove('token');
+        throw Exception("User not logged in");
+      }
     } catch (e) {
       rethrow;
     }
@@ -42,7 +73,7 @@ class AuthRepository {
 
   Future<bool> logout() async {
     try {
-      return preferences.clear();
+      return preferences.remove('token');
     } catch (e) {
       rethrow;
     }
