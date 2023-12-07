@@ -1,16 +1,12 @@
 import 'package:employee/data/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+///This is the global authentication repository
+///
 class AuthRepository {
-  late SharedPreferences preferences;
+  SharedPreferences preferences;
 
-  AuthRepository() {
-    getInstance();
-  }
-
-  getInstance() async {
-    preferences = await SharedPreferences.getInstance();
-  }
+  AuthRepository({required this.preferences});
 
   ///Logs the user In and returns a UserModel object
   Future<UserModel> login(String email, String password) async {
@@ -18,7 +14,7 @@ class AuthRepository {
       ///logic for api calls but now temporarily using local auth
       bool registered = preferences.containsKey(email);
       if (!registered) {
-        throw Exception("User not registered");
+        throw "User not registered";
       }
       String passwordFromStorage =
           preferences.getString("${email}password") ?? '';
@@ -26,7 +22,7 @@ class AuthRepository {
         await preferences.setString("token", email);
         return getUserDetails();
       } else {
-        throw Exception("Invalid Credentials");
+        throw "Invalid Credentials";
       }
     } catch (e) {
       rethrow;
@@ -48,8 +44,6 @@ class AuthRepository {
 
   Future<bool> isLoggedIn() async {
     try {
-      if (preferences == null)
-        preferences = await SharedPreferences.getInstance();
       return preferences.getString('token') != null;
     } catch (e) {
       rethrow;
@@ -64,7 +58,7 @@ class AuthRepository {
         return UserModel.fromJson(data);
       } else {
         preferences.remove('token');
-        throw Exception("User not logged in");
+        throw "User not logged in";
       }
     } catch (e) {
       rethrow;

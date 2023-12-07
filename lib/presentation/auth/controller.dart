@@ -18,15 +18,11 @@ class AuthFlowController extends GetxController {
   TextEditingController passwordSignUpController = TextEditingController();
   PageController pageController = PageController();
   Rxn<XFile?> profilePic = Rxn<XFile?>();
-  ImagePicker _picker = ImagePicker();
+  final ImagePicker _picker = ImagePicker();
   final loginKey = GlobalKey<FormState>();
   final registerKey = GlobalKey<FormState>();
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
+  ///Image Picker to pick the profile image
   pickImage() async {
     try {
       final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -40,6 +36,7 @@ class AuthFlowController extends GetxController {
     }
   }
 
+  /// login callback
   void login() async {
     if (!loginKey.currentState!.validate()) {
       return;
@@ -49,8 +46,13 @@ class AuthFlowController extends GetxController {
         emailSignInController.text, passwordSignInController.text);
   }
 
+  /// signup callback
   void register() async {
     if (registerKey.currentState!.validate()) {
+      if (profilePic.value == null) {
+        showSnackBar("Please select a profile picture");
+        return;
+      }
       authController.register(
           UserModel(
               email: emailSignUpController.text,

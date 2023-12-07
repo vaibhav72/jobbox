@@ -5,15 +5,24 @@ import 'package:get/get.dart';
 import '../models/document_model.dart';
 import '../models/job_application_model.dart';
 import '../repository/job_repository.dart';
+import 'auth_controller.dart';
+import 'shared_pref_controller.dart';
 
+/// JobController is responsible for managing the state of the job application
+/// process. It is also responsible for managing the state of the documents
+/// that are uploaded by the user.
+/// It also loads the list of jobs from the server.[Now Local]
 class JobController extends GetxController {
   static JobController get to => Get.find<JobController>();
-  JobRepository _jobRepository = JobRepository();
+  final JobRepository _jobRepository = JobRepository(
+      preferences: SharedPrefsController.to.preferences!,
+      token: AuthController.to.userModel.value!.email);
   Rxn<List<JobApplicationModel>> jobApplications =
       Rxn<List<JobApplicationModel>>();
   Rxn<List<DocumentModel>> documents = Rxn<List<DocumentModel>>([]);
   Rxn<DocumentModel> selectedResume = Rxn<DocumentModel>();
   Rxn<DocumentModel> selectedCoverLetter = Rxn<DocumentModel>();
+
   List<JobModel> jobList = [
     JobModel(
         id: 1,
@@ -52,6 +61,12 @@ class JobController extends GetxController {
             '''We're looking for a talented Lead Product Designer to join our rapidly growing design team to create intuitive and effective experiences for our customers as Requirements''',
         postedAt: DateTime.now()),
   ];
+
+  @override
+  void onInit() {
+    super.onInit();
+    init();
+  }
 
   init() {
     jobApplications.value = _jobRepository.getJobApplications();

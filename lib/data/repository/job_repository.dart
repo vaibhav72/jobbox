@@ -1,13 +1,18 @@
-import 'package:employee/data/models/document_model.dart';
-import 'package:employee/data/models/job_application_model.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:employee/data/models/document_model.dart';
+import 'package:employee/data/models/job_application_model.dart';
+
+/// A class that handles the job application repository.
+
 class JobRepository {
-  late SharedPreferences preferences;
+  SharedPreferences preferences;
   String? token;
-  JobRepository() {
-    getInstance();
-  }
+  JobRepository({
+    required this.preferences,
+    this.token,
+  });
 
   getInstance() async {
     preferences = await SharedPreferences.getInstance();

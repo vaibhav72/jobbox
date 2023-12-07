@@ -1,16 +1,13 @@
-import 'package:employee/data/controllers/auth_controller.dart';
-import 'package:employee/data/controllers/job_controller.dart';
-import 'package:employee/data/repository/auth_repository.dart';
-import 'package:employee/presentation/home/binding.dart';
+import 'package:employee/data/bindings/initial_bindings.dart';
+
 import 'package:employee/utils/helpers.dart';
 import 'package:employee/utils/meta_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'auth.dart';
-import 'presentation/auth/controller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,9 +20,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+        initialBinding: InitialBindings(),
         title: 'Jobbox',
         theme: ThemeData(
           primaryColor: MetaColors.primaryColor,
+          colorScheme: const ColorScheme.light(
+              primary: MetaColors.primaryColor,
+              secondary: MetaColors.textColor,
+              tertiary: MetaColors.secondaryTextColor),
           textTheme: GoogleFonts.poppinsTextTheme(),
           primarySwatch: Colors.blue,
         ),
@@ -45,12 +47,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    HomeBinding().dependencies();
-    Get.put(AuthController());
-    Get.put(AuthFlowController());
-    Get.put(JobController());
-
-    Future.delayed(Duration(seconds: 2), () {
+    super.initState();
+    Future.delayed(const Duration(seconds: 2), () {
       showSplash = false;
       setState(() {});
     });
@@ -59,11 +57,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return showSplash
-        ? Scaffold(
+        ? const Scaffold(
             body: Center(
               child: LogoWidget(),
             ),
           )
-        : Auth();
+        : const Auth();
   }
 }

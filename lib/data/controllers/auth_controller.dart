@@ -1,9 +1,16 @@
+import 'package:employee/data/controllers/shared_pref_controller.dart';
 import 'package:employee/data/models/user_model.dart';
+import 'package:employee/presentation/home/binding.dart';
 import 'package:employee/utils/helpers.dart';
 import 'package:get/get.dart';
 
 import '../repository/auth_repository.dart';
 
+///This is the global authentication controller that maintaions the entire apps
+///authentication state
+///It is used to login, logout, register and check if the user is logged in
+///It is also used to get the current user details
+///
 class AuthController extends GetxController {
   static AuthController get to => Get.find<AuthController>();
   Rxn<UserModel> userModel = Rxn();
@@ -13,7 +20,9 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _authRepository = AuthRepository();
+    _authRepository = AuthRepository(
+      preferences: SharedPrefsController.to.preferences!,
+    );
     init();
   }
 
@@ -24,6 +33,7 @@ class AuthController extends GetxController {
         email,
         password,
       );
+      HomeBinding().dependencies();
       authLoading.value = false;
     } catch (e) {
       authLoading.value = false;
@@ -58,6 +68,7 @@ class AuthController extends GetxController {
     loading.value = true;
     if (await _authRepository.isLoggedIn()) {
       userModel.value = _authRepository.getUserDetails();
+      HomeBinding().dependencies();
       loading.value = false;
     }
     loading.value = false;

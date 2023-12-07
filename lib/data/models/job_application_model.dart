@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 import 'package:employee/data/models/job_model.dart';
 
 import 'document_model.dart';
@@ -20,6 +22,7 @@ class JobApplicationModel {
   String? companyName;
   String? jobTitle;
   String? yearsOfExperience;
+  List<String> skills;
   JobApplicationModel({
     required this.id,
     required this.jobID,
@@ -35,6 +38,7 @@ class JobApplicationModel {
     this.companyName,
     this.jobTitle,
     this.yearsOfExperience,
+    required this.skills,
   });
 
   JobApplicationModel copyWith({
@@ -52,6 +56,7 @@ class JobApplicationModel {
     String? companyName,
     String? jobTitle,
     String? yearsOfExperience,
+    List<String>? skills,
   }) {
     return JobApplicationModel(
       id: id ?? this.id,
@@ -70,6 +75,7 @@ class JobApplicationModel {
       companyName: companyName ?? this.companyName,
       jobTitle: jobTitle ?? this.jobTitle,
       yearsOfExperience: yearsOfExperience ?? this.yearsOfExperience,
+      skills: skills ?? this.skills,
     );
   }
 
@@ -89,6 +95,7 @@ class JobApplicationModel {
       'companyName': companyName,
       'jobTitle': jobTitle,
       'yearsOfExperience': yearsOfExperience,
+      'skills': skills,
     };
   }
 
@@ -118,6 +125,7 @@ class JobApplicationModel {
       yearsOfExperience: map['yearsOfExperience'] != null
           ? map['yearsOfExperience'] as String
           : null,
+      skills: ((map['skills'] ?? []) as List).map((e) => e.toString()).toList(),
     );
   }
 
@@ -128,7 +136,7 @@ class JobApplicationModel {
 
   @override
   String toString() {
-    return 'JobApplicationModel(id: $id, jobID: $jobID, job: $job, resume: $resume, coverLetter: $coverLetter, educationIncludedInResume: $educationIncludedInResume, yearOfGraduation: $yearOfGraduation, experienceIncludedInResume: $experienceIncludedInResume, schoolName: $schoolName, degree: $degree, date: $date, companyName: $companyName, jobTitle: $jobTitle, yearsOfExperience: $yearsOfExperience)';
+    return 'JobApplicationModel(id: $id, jobID: $jobID, job: $job, resume: $resume, coverLetter: $coverLetter, educationIncludedInResume: $educationIncludedInResume, yearOfGraduation: $yearOfGraduation, experienceIncludedInResume: $experienceIncludedInResume, schoolName: $schoolName, degree: $degree, date: $date, companyName: $companyName, jobTitle: $jobTitle, yearsOfExperience: $yearsOfExperience, skills: $skills)';
   }
 
   @override
@@ -148,7 +156,8 @@ class JobApplicationModel {
         other.date == date &&
         other.companyName == companyName &&
         other.jobTitle == jobTitle &&
-        other.yearsOfExperience == yearsOfExperience;
+        other.yearsOfExperience == yearsOfExperience &&
+        listEquals(other.skills, skills);
   }
 
   @override
@@ -166,6 +175,7 @@ class JobApplicationModel {
         date.hashCode ^
         companyName.hashCode ^
         jobTitle.hashCode ^
-        yearsOfExperience.hashCode;
+        yearsOfExperience.hashCode ^
+        skills.hashCode;
   }
 }

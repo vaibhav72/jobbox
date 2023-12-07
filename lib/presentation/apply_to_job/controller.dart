@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
 
 import 'package:employee/data/controllers/job_controller.dart';
 import 'package:employee/data/models/document_model.dart';
@@ -11,6 +10,8 @@ import 'package:get/get.dart';
 
 import 'package:employee/utils/helpers.dart';
 
+/// This is the controller for the ApplyToJobView.
+/// This controller is used to manage the state of the view.
 class ApplyToJobController extends GetxController {
   static ApplyToJobController get to => Get.find<ApplyToJobController>();
   List<DocumentModel?> get resume => jobController.documents.value!
@@ -30,6 +31,8 @@ class ApplyToJobController extends GetxController {
   TextEditingController experienceController = TextEditingController();
   TextEditingController companyNameController = TextEditingController();
   TextEditingController jobTitleController = TextEditingController();
+  Rxn<List<String>> skills = Rxn<List<String>>([]);
+  TextEditingController skillController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   Rxn<JobApplicationModel> jobApplication = Rxn<JobApplicationModel>();
@@ -101,7 +104,7 @@ class ApplyToJobController extends GetxController {
       return;
     }
     pageController.nextPage(
-        duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+        duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
   }
 
   saveEducationAndExperience() {
@@ -123,9 +126,10 @@ class ApplyToJobController extends GetxController {
       companyName: companyNameController.text,
       jobTitle: jobTitleController.text,
       yearsOfExperience: experienceController.text,
+      skills: skills.value ?? [],
     );
     pageController.nextPage(
-        duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+        duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
   }
 
   saveAndApply() async {
@@ -141,7 +145,7 @@ class ApplyToJobController extends GetxController {
 
   gotoExperienceAndEducation() {
     pageController.previousPage(
-        duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+        duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
   }
 
   gotoDocuments() {
@@ -153,7 +157,24 @@ class ApplyToJobController extends GetxController {
     companyNameController.text = "";
     jobTitleController.text = "";
     pageController.previousPage(
-        duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+        duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+  }
+
+  addSkill() {
+    if (skillController.text.isEmpty) {
+      showSnackBar("Please enter a skill");
+      return;
+    }
+
+    skills.value = [...skills.value!, skillController.text];
+    skillController.text = "";
+    Get.back();
+  }
+
+  removeSkill(String skill) {
+    int index = skills.value!.indexOf(skill);
+    skills.value!.removeAt(index);
+    skills.refresh();
   }
 
   endApplication() {
