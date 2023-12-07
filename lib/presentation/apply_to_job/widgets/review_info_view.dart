@@ -277,8 +277,11 @@ class ReviewInfoWidget extends GetView<ApplyToJobController> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              controller.jobController
-                                                  .selectedResume.value!.path
+                                              controller
+                                                  .jobController
+                                                  .selectedCoverLetter
+                                                  .value!
+                                                  .path
                                                   .split("/")
                                                   .last,
                                               style: TextStyle(

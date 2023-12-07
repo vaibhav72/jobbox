@@ -42,8 +42,18 @@ class AuthFlowController extends GetxController {
       return;
     }
 
-    authController.login(
-        emailSignInController.text, passwordSignInController.text);
+    try {
+      authController
+          .login(emailSignInController.text, passwordSignInController.text)
+          .then((value) {
+        emailSignInController.clear();
+        passwordSignInController.clear();
+      }).catchError((err) {
+        showSnackBar(err.toString());
+      });
+    } catch (e) {
+      showSnackBar(e.toString());
+    }
   }
 
   /// signup callback
@@ -53,13 +63,27 @@ class AuthFlowController extends GetxController {
         showSnackBar("Please select a profile picture");
         return;
       }
-      authController.register(
-          UserModel(
-              email: emailSignUpController.text,
-              name: nameSignUpController.text,
-              profilePic: profilePic.value!.path,
-              phoneNumber: phoneSignUpController.text),
-          passwordSignUpController.text);
+      try {
+        authController
+            .register(
+                UserModel(
+                    email: emailSignUpController.text,
+                    name: nameSignUpController.text,
+                    profilePic: profilePic.value!.path,
+                    phoneNumber: phoneSignUpController.text),
+                passwordSignUpController.text)
+            .then((value) {
+          emailSignUpController.clear();
+          nameSignUpController.clear();
+          phoneSignUpController.clear();
+          passwordSignUpController.clear();
+          profilePic.value = null;
+        }).catchError((e) {
+          showSnackBar(e.toString());
+        });
+      } catch (e) {
+        showSnackBar(e.toString());
+      }
     }
   }
 

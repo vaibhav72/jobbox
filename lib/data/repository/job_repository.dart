@@ -41,7 +41,7 @@ class JobRepository {
     }
   }
 
-  getSelectedResume() {
+  DocumentModel? getSelectedResume() {
     try {
       String? data = preferences.getString('$token-selected-resume');
       if (data != null) {
@@ -66,7 +66,7 @@ class JobRepository {
     }
   }
 
-  getSelectedCoverLetter() {
+  DocumentModel? getSelectedCoverLetter() {
     try {
       String? data = preferences.getString('$token-selected-cover-letter');
       if (data != null) {
@@ -92,7 +92,7 @@ class JobRepository {
     }
   }
 
-  getJobApplications() {
+  List<JobApplicationModel> getJobApplications() {
     try {
       List<String>? data = preferences.getStringList('$token-job-applications');
       if (data != null) {

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:employee/data/controllers/auth_controller.dart';
 import 'package:employee/data/controllers/job_controller.dart';
+import 'package:employee/presentation/home/controller.dart';
 
 import 'package:employee/utils/helpers.dart';
 import 'package:employee/utils/meta_assets.dart';
@@ -16,7 +17,7 @@ import 'package:intl/intl.dart';
 
 import 'package:employee/utils/meta_colors.dart';
 
-class ProfileWidget extends StatelessWidget {
+class ProfileWidget extends GetView<HomeController> {
   const ProfileWidget({
     super.key,
   });
@@ -291,6 +292,9 @@ class ProfileWidget extends StatelessWidget {
               CustomButton(
                 title: "Log out",
                 onTap: () {
+                  controller.selectedBottomIndex.value = 0;
+                  Get.delete<JobController>();
+                  Get.delete<HomeController>();
                   AuthController.to.logout();
                 },
               )

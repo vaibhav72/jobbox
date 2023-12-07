@@ -26,7 +26,7 @@ class AuthController extends GetxController {
     init();
   }
 
-  void login(String email, String password) async {
+  Future<bool> login(String email, String password) async {
     try {
       authLoading.value = true;
       userModel.value = await _authRepository.login(
@@ -35,9 +35,10 @@ class AuthController extends GetxController {
       );
       HomeBinding().dependencies();
       authLoading.value = false;
+      return true;
     } catch (e) {
       authLoading.value = false;
-      showSnackBar(e.toString());
+      rethrow;
     }
   }
 
@@ -53,14 +54,16 @@ class AuthController extends GetxController {
     }
   }
 
-  void register(UserModel data, String password) async {
+  Future<bool> register(UserModel data, String password) async {
     try {
       authLoading.value = true;
       userModel.value = await _authRepository.register(data, password);
+      HomeBinding().dependencies();
       authLoading.value = false;
+      return true;
     } catch (e) {
       authLoading.value = false;
-      showSnackBar(e.toString());
+      rethrow;
     }
   }
 

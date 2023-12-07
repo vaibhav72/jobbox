@@ -114,7 +114,7 @@ class DocumentUploadview extends GetView<ApplyToJobController> {
                                       data: e!,
                                       onTap: () {
                                         controller.jobController
-                                            .selectedResume(e);
+                                            .selectResume(e);
                                       },
                                       selected: controller.jobController
                                               .selectedResume.value ==

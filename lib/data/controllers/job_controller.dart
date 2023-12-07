@@ -94,4 +94,10 @@ class JobController extends GetxController {
     documents.value = [...?documents.value, document];
     _jobRepository.saveDocuments(documents.value!);
   }
+
+  reset() {
+    documents.value = [];
+    selectedResume.value = null;
+    selectedCoverLetter.value = null;
+  }
 }
