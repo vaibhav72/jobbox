@@ -246,6 +246,8 @@ class EmployeeInfoWidget extends GetView<ApplyToJobController> {
                             ),
                             InkWell(
                               onTap: () {
+                                FocusScope.of(context)
+                                    .requestFocus(controller.skillFocusNode);
                                 Get.dialog(Center(
                                   child: AlertDialog(
                                     shape: RoundedRectangleBorder(
@@ -275,66 +277,72 @@ class EmployeeInfoWidget extends GetView<ApplyToJobController> {
                                   ),
                                 ));
                               },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(
-                                        color:
-                                            Get.theme.colorScheme.secondary)),
-                                child: Padding(
-                                  padding: EdgeInsets.all(
-                                      controller.skills.value!.isNotEmpty
-                                          ? 0
-                                          : 16),
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.all(
-                                            !controller.skills.value!.isNotEmpty
-                                                ? 0
-                                                : 8),
-                                        child: const Icon(Icons.search),
-                                      ),
-                                      Expanded(
-                                          child: Obx(
-                                        () => Wrap(
-                                          children: controller.skills.value!
-                                              .map((e) => Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Chip(
-                                                      deleteIcon: const Icon(
-                                                        Icons.close,
-                                                        color: Colors.white,
-                                                      ),
-                                                      backgroundColor: Get
-                                                          .theme.primaryColor,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          12)),
-                                                      label: Text(
-                                                        e,
-                                                        style: const TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      onDeleted: () {
-                                                        controller
-                                                            .removeSkill(e);
-                                                      },
-                                                    ),
-                                                  ))
-                                              .toList(),
+                              child: Focus(
+                                focusNode: controller.skillFocusNode,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      border: Border.all(
+                                          color:
+                                              Get.theme.colorScheme.secondary)),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(
+                                        controller.skills.value!.isNotEmpty
+                                            ? 0
+                                            : 16),
+                                    child: Row(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.all(!controller
+                                                  .skills.value!.isNotEmpty
+                                              ? 0
+                                              : 8),
+                                          child: const Icon(Icons.search),
                                         ),
-                                      ))
-                                    ],
+                                        Expanded(
+                                            child: Obx(
+                                          () => Wrap(
+                                            children: controller.skills.value!
+                                                .map((e) => Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Chip(
+                                                        deleteIcon: const Icon(
+                                                          Icons.close,
+                                                          color: Colors.white,
+                                                        ),
+                                                        backgroundColor: Get
+                                                            .theme.primaryColor,
+                                                        shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        12)),
+                                                        label: Text(
+                                                          e,
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                        ),
+                                                        onDeleted: () {
+                                                          controller
+                                                              .removeSkill(e);
+                                                        },
+                                                      ),
+                                                    ))
+                                                .toList(),
+                                          ),
+                                        ))
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
+                            ),
+                            SizedBox(
+                              height: 20,
                             )
                           ],
                         ),

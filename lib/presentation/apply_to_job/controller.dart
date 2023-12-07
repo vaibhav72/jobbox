@@ -34,7 +34,7 @@ class ApplyToJobController extends GetxController {
   Rxn<List<String>> skills = Rxn<List<String>>([]);
   TextEditingController skillController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-
+  FocusNode skillFocusNode = FocusNode();
   Rxn<JobApplicationModel> jobApplication = Rxn<JobApplicationModel>();
 
   @override
