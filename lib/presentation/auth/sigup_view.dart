@@ -155,7 +155,7 @@ class Signupview extends GetView<AuthFlowController> {
                                   CustomTextField(
                                     controller: controller
                                         .confirmPasswordSignUpController,
-                                    title: "Confirm Password",
+                                    title: "Re-Type Password",
                                     obscure: true,
                                     validator: (value) {
                                       if (value !=
